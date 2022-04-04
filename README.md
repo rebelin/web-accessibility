@@ -3,7 +3,7 @@
 This is a work in progress. Eventually, there will be a way to interact with the terminal to make changes, rather than making changes in the code.
 
 ## Setup
-This program uses the BeautifulSoup library:
+This program uses the BeautifulSoup library ([view Beautiful Soup documentation here](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)):
 
 <code> pip install beautifulsoup4 </code>
 
