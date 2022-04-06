@@ -10,10 +10,11 @@ This program uses the BeautifulSoup library ([view Beautiful Soup documentation 
 
 ## Files
 
+* [`main.py`](main.py) - Main interactive program
 * [`doc.md`](doc.md) - Progress documentation
-* [`cleaner.py`](cleaner.py) - Main interactive program
-* [`web_access.py`](web_access.py) - Main testing file
-* [`soup.py`](soup.py) - Creates a soup instance with BeautifulSoup
+* [`web_access.py`](web_access.py) - Testing file
+* [`cleaner.py`](cleaner.py) - Creates a cleaner class
+* [`soup.py`](soup.py) - Creates a soup class with BeautifulSoup
 * [`replace_list.txt`](replace_list.txt) - List of common (inaccessible) tags and their accessible counterparts
 
 ## Usage

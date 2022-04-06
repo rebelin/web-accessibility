@@ -1,6 +1,7 @@
 # Progress Documentation
 
 ## Issues I plan to address
-
-
-## Things I want to add
+* Standardize a heading
+* Find ways to fix non-formatted bibliographies
+* Figure out how to keep elements made in CSS
+* Add more fail-safes

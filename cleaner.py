@@ -1,68 +1,91 @@
 from soup import Soup
 
-def print_options(questions):
-    print("What would you like to do?")
-    for i in range(len(questions)):
-        print(i + 1, questions[i])
-    return input("Please enter an option number: ")
+class Cleaner:
+    def __init__(self, soup):
+        self.soup = soup
+        self.questions = ["Quick Clean", "Add", "Replace", "Remove", "Access Whitelist"]
+        self.whitelist = self.soup.get_whitelist()
 
-def auto_clean():
-    return
+    def quick_clean(self):
+        print("Quick clean will replace inaccessible and non-semantic tags and remove empty tags.")
+        i = input("Are you sure you want to quick clean? [Y/N] ")
+        if i in ["Y", "y", "yes", "Yes"]:
+            self.soup.auto_replace()
+            self.soup.remove_empty_tags()
+        return
 
-def add():
-    print("What do you want to add?")
-    add = ["Bibliography", "Citation", "Header"]
-    print_options(add)
-
-    return
-
-def replace():
-
-    return
-
-def remove():
-    print("What do you want to remove?")
-    rm = ["Tag", "Attribute", "Edit whitelist"]
-    print_options(rm)
-
-    return
-
-def whitelist(x):
-    wq = ["View", "Add", "Remove", "Done"]
-
-    done = False
-    while not done:
-        i = print_options(wq)
+    def add(self):
+        print("What do you want to add?")
+        add = ["Header", "Language declaration", "Bibliography", "Citation"]
+        i = int(print_options(add))
         if i == 1:
-            print("Your current whitelist:")
-            x.print_whitelist()
+            self.soup.add_header()
         elif i == 2:
-            a = input("What tag do you want to add?")
-            x.add_to_whitelist(a)
+            self.soup.add_lang()
         elif i == 3:
-            a = input("What do you want to remove?")
-            x.remove_from_whitelist(a)
-        else:
-            done = True
-
-def main():
-    file = input("Enter (HTML) file name: ")
-    x = Soup(file)
-    questions = ["Auto-Clean", "Add", "Replace", "Remove", "Access whitelist", "Done"]
-
-    done = False
-    while not done:
-        i = print_options(questions)
-
-        if i == 1:
-            auto_clean(x)
-        elif i == 2:
-            add(x)
-        elif i == 3:
-            replace(x)
+            self.soup.add_bib()
         elif i == 4:
-            remove(x)
-        elif i == 5:
-            whitelist(x)
+            self.soup.add_cite()
+        return
+
+    def replace():
+
+
+        return
+
+    def remove(self):
+        print("What do you want to remove?")
+        rm = ["Specific Tag", "Tag-Specific Attribute", "All attributes", "View/edit whitelist"]
+        i = int(print_options(rm))
+        if i == 1:
+            tag = input("What tag do you want to remove? (NOTE: This will remove all instances of the tag) ")
+            self.soup.remove_tag(tag)
+        elif i == 2:
+            attr = input("What attribute do you want to remove? ")
+            tag = input("Which tag is the attribute associated with? ")
+            self.soup.remove_attr(tag, attr)
+        elif i == 3:
+            print("WARNING: This will remove ALL attributes from all tags, unless they are in your whitelist.")
+            print("Tags currently in your whitelist: ")
+            print_whitelist()
+            a = input("Would you like to proceed? [Y/N] ")
+            if a in ["y", "Y", "yes", "Yes"]:
+                self.soup.remove_all_attrs_except(self.whitelist)
+            else:
+                a = input("View/edit whitelist? [Y/N] ")
+                if a in ["y", "Y", "yes", "Yes"]:
+                    self.whitelist()
+        return
+
+    def update_whitelist(self):
+        self.whitelist = self.soup.get_whitelist()
+
+    def print_whitelist(self):
+        if len(self.whitelist) == 0:
+            print("Your whitelist is empty.")
         else:
-            done = True
+            for i in self.whitelist:
+                print("- ", i)
+
+    def whitelist(self):
+        wq = ["View", "Add", "Remove"]
+
+        done = False
+        while not done:
+            i = int(print_options(wq))
+            if i == 1:
+                print("Your current whitelist: ")
+                self.print_whitelist()
+            elif i == 2:
+                a = input("What tag do you want to add? ")
+                self.soup.add_to_whitelist(a)
+                self.update_whitelist()
+            elif i == 3:
+                a = input("What do you want to remove? ")
+                self.soup.remove_from_whitelist(a)
+                self.update_whitelist()
+            else:
+                return
+
+    def done(self):
+        self.soup.make_file()

@@ -15,16 +15,7 @@ class Soup:
             print("Invalid file, please enter an htm(l) file")
         # self.tags = self.soup.find_all(True)
 
-    def add_to_whitelist(self, item):
-        self.whitelist.append(item)
-
-    def add_bib(self):
-        return
-
-    def find_specials(self):
-        specials = []
-        print(self.soup.find_all(string = re.compile("�")))
-
+    # Quick clean functions
     def auto_replace(self):
         """
         This function replaces tags with accessible versions of those tags
@@ -41,6 +32,32 @@ class Soup:
                     new_tag.string = s.string
                     self.whitelist.append(new_tag.name)
 
+    def remove_empty_tags(self):
+        for t in self.soup.findAll():
+            if len(t.get_text(strip=True)) == 0:
+                t.extract()
+
+    # Add functions
+    def add_header(self):
+        return
+    def add_bib(self):
+        return
+    def add_cite(self):
+        return
+
+    def get_whitelist():
+        return self.whitelist
+        
+    def add_to_whitelist(self, item):
+        self.whitelist.append(item)
+
+    def find_specials(self):
+        specials = []
+        print(self.soup.find_all(string = re.compile("�")))
+
+    def replaceTag(self, old, tag):
+        self.soup.old.replace_with(tag)
+
     def auto_span_style(self, tag = "span", attr = "style"):
         for t in self.soup.find_all(tag):
             if t.has_attr(attr):
@@ -53,14 +70,12 @@ class Soup:
                 new_tag.string = s.get_text()
                 self.whitelist.append(new_tag.name)
 
+    # Remove functions
     def remove_tag(self, tag):
         for t in self.soup.select(tag):
             t.unwrap()
 
-    def replaceTag(self, old, tag):
-        self.soup.old.replace_with(tag)
-
-    def remove_specific_attr(self, tag, attr):
+    def remove_attr(self, tag, attr):
         for t in self.soup(tag):
             del t[attr]
 
