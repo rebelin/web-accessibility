@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
-import unicodedata
+import re
 
-class Web:
+class Soup:
     def __init__(self, file_name, whitelist = []):
         self.file = file_name
         self.index = file_name.rfind(".htm")
@@ -14,6 +14,16 @@ class Web:
         except:
             print("Invalid file, please enter an htm(l) file")
         # self.tags = self.soup.find_all(True)
+
+    def add_to_whitelist(self, item):
+        self.whitelist.append(item)
+
+    def add_bib(self):
+        return
+
+    def find_specials(self):
+        specials = []
+        print(self.soup.find_all(string = re.compile("�")))
 
     def auto_replace(self):
         """
