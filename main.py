@@ -25,7 +25,7 @@ def main():
     done = False
     while not done:
         print("What would you like to do?")
-        i = int(print_options(questions))
+        i = int(print_options(clean.questions))
         if i == 1:
             clean.quick_clean()
         elif i == 2:

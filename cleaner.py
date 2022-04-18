@@ -6,6 +6,9 @@ class Cleaner:
         self.questions = ["Quick Clean", "Add", "Replace", "Remove", "Access Whitelist"]
         self.whitelist = self.soup.get_whitelist()
 
+    def get_questions(self):
+        return self.questions
+        
     def quick_clean(self):
         print("Quick clean will replace inaccessible and non-semantic tags and remove empty tags.")
         i = input("Are you sure you want to quick clean? [Y/N] ")

@@ -47,7 +47,7 @@ class Soup:
 
     def get_whitelist():
         return self.whitelist
-        
+
     def add_to_whitelist(self, item):
         self.whitelist.append(item)
 
